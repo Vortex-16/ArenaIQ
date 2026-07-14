@@ -159,7 +159,11 @@ export async function generateAIResponse(query, apiConfig, onChunk) {
     normalizedQuery.includes('boleto') || 
     normalizedQuery.includes('silla de ruedas') ||
     normalizedQuery.includes('sustentabilidad') ||
-    normalizedQuery.includes('comida')
+    normalizedQuery.includes('comida') ||
+    normalizedQuery.includes('traer') ||
+    normalizedQuery.includes('prohibido') ||
+    normalizedQuery.includes('estacionamiento') ||
+    normalizedQuery.includes('metro')
   ) {
     lang = 'es';
   } else if (
@@ -167,7 +171,9 @@ export async function generateAIResponse(query, apiConfig, onChunk) {
     normalizedQuery.includes('porte') || 
     normalizedQuery.includes('billet') || 
     normalizedQuery.includes('recyclage') || 
-    normalizedQuery.includes('fauteuil')
+    normalizedQuery.includes('fauteuil') ||
+    normalizedQuery.includes('interdit') ||
+    normalizedQuery.includes('stade')
   ) {
     lang = 'fr';
   }
@@ -179,7 +185,7 @@ export async function generateAIResponse(query, apiConfig, onChunk) {
     matchedText = LOCAL_KNOWLEDGE[lang].prohibited;
   } else if (normalizedQuery.includes('access') || normalizedQuery.includes('wheelchair') || normalizedQuery.includes('disabled') || normalizedQuery.includes('sensory') || normalizedQuery.includes('silla') || normalizedQuery.includes('fauteuil') || normalizedQuery.includes('handicap')) {
     matchedText = LOCAL_KNOWLEDGE[lang].accessibility;
-  } else if (normalizedQuery.includes('transport') || normalizedQuery.includes('uber') || normalizedQuery.includes('train') || normalizedQuery.includes('parking') || normalizedQuery.includes('bus') || normalizedQuery.includes('shuttle') || normalizedQuery.includes('estacionamiento') || normalizedQuery.includes('metro')) {
+  } else if (normalizedQuery.includes('transport') || normalizedQuery.includes('uber') || normalizedQuery.includes('train') || normalizedQuery.includes('parking') || normalizedQuery.includes('park my') || normalizedQuery.includes('bus') || normalizedQuery.includes('shuttle') || normalizedQuery.includes('estacionamiento') || normalizedQuery.includes('metro')) {
     matchedText = LOCAL_KNOWLEDGE[lang].transport;
   } else if (normalizedQuery.includes('sustainability') || normalizedQuery.includes('recycle') || normalizedQuery.includes('green') || normalizedQuery.includes('eco') || normalizedQuery.includes('sustentable') || normalizedQuery.includes('reciclaje')) {
     matchedText = LOCAL_KNOWLEDGE[lang].sustainability;

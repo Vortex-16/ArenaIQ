@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Trophy, 
-  MapPin, 
   Activity, 
   MessageSquare, 
   LogIn, 
@@ -13,6 +12,7 @@ import {
   EyeOff
 } from 'lucide-react';
 import { authService } from '../services/authService';
+import { validateEmail, validatePassword } from '../utils/sanitize';
 
 export default function LandingPage({ onLoginSuccess }) {
   const [isLoginTab, setIsLoginTab] = useState(true);
@@ -26,8 +26,20 @@ export default function LandingPage({ onLoginSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-    setIsLoading(true);
 
+    // Client-side validation before hitting the auth service
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.valid) {
+      setErrorMsg(emailCheck.error);
+      return;
+    }
+    const passCheck = validatePassword(password);
+    if (!passCheck.valid) {
+      setErrorMsg(passCheck.error);
+      return;
+    }
+
+    setIsLoading(true);
     try {
       if (isLoginTab) {
         const user = await authService.signIn(email, password);
