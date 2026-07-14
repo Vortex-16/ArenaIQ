@@ -21,6 +21,23 @@ export default function App() {
 
   // Sync auth state with real Firebase Auth listener or fallback storage
   useEffect(() => {
+    if (!auth) {
+      const fallbackSession = sessionStorage.getItem('arena_jwt_fallback');
+      if (fallbackSession) {
+        try {
+          const parsed = JSON.parse(fallbackSession);
+          setCurrentUser(parsed);
+          setActivePortal(parsed.role === 'staff' ? 'staff' : 'fan');
+        } catch (err) {
+          setCurrentUser(null);
+        }
+      } else {
+        setCurrentUser(null);
+      }
+      setAuthChecked(true);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
