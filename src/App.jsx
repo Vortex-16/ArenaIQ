@@ -14,8 +14,8 @@ export default function App() {
   const [activePortal, setActivePortal] = useState('fan');
   const [activeStadium, setActiveStadium] = useState('metlife');
   const [apiConfig, setApiConfig] = useState({
-    service: 'mock',
-    key: ''
+    service: import.meta.env.VITE_AI_SERVICE || 'mock',
+    key: import.meta.env.VITE_AI_API_KEY || ''
   });
   const [authChecked, setAuthChecked] = useState(false);
 

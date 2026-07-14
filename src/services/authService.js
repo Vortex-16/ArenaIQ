@@ -19,7 +19,7 @@ const base64UrlEncode = (str) => {
 };
 
 // State flag to track if we fell back to simulation
-let useLocalFallback = false;
+let useLocalFallback = !auth;
 
 export const authService = {
   /**

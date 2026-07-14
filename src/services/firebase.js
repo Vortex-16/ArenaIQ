@@ -1,18 +1,31 @@
 // Firebase Configuration and Initialization
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAMLvQOlITkUQNxhlzv61Mtxv4qYgZzsiE",
-  authDomain: "arenaliq-stadium-83fc7.firebaseapp.com",
-  projectId: "arenaliq-stadium-83fc7",
-  storageBucket: "arenaliq-stadium-83fc7.firebasestorage.app",
-  messagingSenderId: "884483732281",
-  appId: "1:884483732281:web:5b37da585da2c2e12e6ee8"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const hasFirebaseKeys = firebaseConfig.apiKey && firebaseConfig.projectId;
 
-// Initialize and export Auth service
-export const auth = getAuth(app);
+let appInstance = null;
+let authInstance = null;
+
+if (hasFirebaseKeys) {
+  try {
+    appInstance = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+    authInstance = getAuth(appInstance);
+  } catch (error) {
+    console.error('Failed to initialize Firebase app:', error);
+  }
+} else {
+  console.log('No Firebase API Key found. Operating in local simulation mode.');
+}
+
+// Export Auth service or null if keys are missing
+export const auth = authInstance;
