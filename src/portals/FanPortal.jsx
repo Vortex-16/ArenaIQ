@@ -126,11 +126,7 @@ export default function FanPortal({ stadiumData, apiConfig, activeStadium }) {
       </div>
 
       {/* Main Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 3.1fr) minmax(0, 1.9fr)',
-        gap: '1.5rem'
-      }}>
+      <div className="responsive-grid-two">
         {/* Left Side: Map & Facilities */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div className="clay-card" style={{ padding: '1.5rem' }}>
@@ -180,11 +176,7 @@ export default function FanPortal({ stadiumData, apiConfig, activeStadium }) {
           </div>
 
           {/* Concessions & Restroom Lists */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '1.5rem'
-          }}>
+          <div className="responsive-grid-half">
             <div className="clay-card" style={{ padding: '1.25rem' }}>
               <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 <Utensils size={16} style={{ color: 'var(--warning)' }} />

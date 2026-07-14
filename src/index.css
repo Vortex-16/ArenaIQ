@@ -4,13 +4,13 @@
 :root {
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   
-  /* Color Palette (FIFA 2026 Space-Dark Solid Theme, NO GRADIENTS) */
-  --bg-dark: #121620;
-  --bg-card: #1c2130;
-  --bg-card-hover: #22293b;
-  --bg-sidebar: #181d2a;
+  /* Color Palette (FIFA 2026 Royal Slate Solid Theme, NO GRADIENTS) */
+  --bg-dark: #0a0e17;
+  --bg-card: #131a26;
+  --bg-card-hover: #1b2435;
+  --bg-sidebar: #101520;
   
-  --border-color: #2b3346;
+  --border-color: #202b3e;
   
   --primary: #10b981; /* Emerald Green */
   --primary-dark: #059669;
@@ -115,6 +115,26 @@ body {
   transition: var(--transition-smooth);
 }
 
+/* Responsive Grid Overrides */
+.responsive-grid-two {
+  display: grid;
+  grid-template-columns: minmax(0, 3.1fr) minmax(0, 1.9fr);
+  gap: 1.5rem;
+}
+
+.responsive-grid-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .responsive-grid-two,
+  .responsive-grid-half {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
@@ -212,7 +232,7 @@ h1, h2, h3, h4, h5 {
 /* Claymorphic Inputs */
 .input-control {
   width: 100%;
-  background-color: #10141e;
+  background-color: #0a0d16;
   border: 2px solid var(--border-color);
   color: var(--text-primary);
   padding: 0.75rem 1rem;
@@ -249,7 +269,7 @@ h1, h2, h3, h4, h5 {
 
 .status-badge.high {
   background-color: var(--warning);
-  color: #121620;
+  color: #0a0e17;
 }
 
 .status-badge.medium {
@@ -275,7 +295,7 @@ h1, h2, h3, h4, h5 {
   aspect-ratio: 16/10;
   border-radius: 20px;
   overflow: hidden;
-  background-color: #0f131c;
+  background-color: #090c14;
   border: 2px solid var(--border-color);
   box-shadow: var(--clay-shadow-input);
 }

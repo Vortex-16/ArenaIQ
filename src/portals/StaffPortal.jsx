@@ -195,11 +195,7 @@ Report generated securely by ArenaIQ GenAI Operations Suite.
       </div>
 
       {/* Main Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 3.1fr) minmax(0, 1.9fr)',
-        gap: '1.5rem'
-      }}>
+      <div className="responsive-grid-two">
         {/* Left Side: Map and Incident Board */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           {/* Heatmap Map */}

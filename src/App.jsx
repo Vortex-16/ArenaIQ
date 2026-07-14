@@ -7,7 +7,7 @@ import { STADIUMS } from './services/mockData';
 import { authService } from './services/authService';
 import { auth } from './services/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { Award } from 'lucide-react';
+import { Award, ShieldAlert, Navigation } from 'lucide-react';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -19,7 +19,7 @@ export default function App() {
   });
   const [authChecked, setAuthChecked] = useState(false);
 
-  // Sync auth state with real Firebase Auth listener
+  // Sync auth state with real Firebase Auth listener or fallback storage
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -37,7 +37,19 @@ export default function App() {
           setCurrentUser(null);
         }
       } else {
-        setCurrentUser(null);
+        // Check if a fallback session exists
+        const fallbackSession = sessionStorage.getItem('arena_jwt_fallback');
+        if (fallbackSession) {
+          try {
+            const parsed = JSON.parse(fallbackSession);
+            setCurrentUser(parsed);
+            setActivePortal(parsed.role === 'staff' ? 'staff' : 'fan');
+          } catch (err) {
+            setCurrentUser(null);
+          }
+        } else {
+          setCurrentUser(null);
+        }
       }
       setAuthChecked(true);
     });
@@ -109,6 +121,9 @@ export default function App() {
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
               Session: <strong style={{ color: 'var(--text-primary)' }}>{currentUser.email}</strong>
+              {sessionStorage.getItem('arena_jwt_fallback') && (
+                <span style={{ fontSize: '0.7rem', color: 'var(--warning)', marginLeft: '0.4rem' }}>(Local API)</span>
+              )}
             </span>
             <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
               <div style={{
